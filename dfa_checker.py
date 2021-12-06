@@ -5,7 +5,6 @@ import jsonpickle
 from automata.fa.dfa import DFA
 from visual_automata.fa.dfa import VisualDFA
 from pydot import Dot, Edge, Node
-import cv2
 from PIL import Image
 
 #Defining the DFA
@@ -99,27 +98,9 @@ if dfa_exists == True and dfa_list['states']!=[]:
     col1, col2= st.columns(2)
     img_dfa = Image.open('dfa_diagram.png')
     img_dfa = np.array(img_dfa)
-    # img_dfa_resize = cv2.resize(img_dfa, None, fx= 2, fy=2, interpolation= cv2.INTER_AREA)
     st.image(img_dfa, caption='DFA')
     string=st.text_input("Enter a string to check whether it is accepted by the DFA")
 if string!="":
-    # dfa = DFA(
-    #     states=set(dfa_list['states']),
-    #     input_symbols=set(dfa_list['alphabets']),
-    #     transitions=dfa_list['transitions'],
-    #     initial_state=dfa_list['initialState'],
-    #     final_states=set(dfa_list['finalStates']),
-    #     )
-    # new_dfa=VisualDFA(dfa)
-    # dot=new_dfa.show_diagram()
-    # dot.format='png'
-    # dfa_image=dot.render('dfa_diagram')
-    # col1, col2= st.columns(2)
-    # img_dfa = Image.open('dfa_diagram.png')
-    # img_dfa = np.array(img_dfa)
-    # img_dfa_resize = cv2.resize(img_dfa, None, fx= 2, fy=2, interpolation= cv2.INTER_AREA)
-    # with col1:
-    #     st.image(img_dfa_resize, caption='DFA')
     flag=0
     for ch in string:
         if ch not in dfa_list['alphabets']:
@@ -132,7 +113,6 @@ if string!="":
         dfa_string_image=dot_string.render('dfa_diagram_string')
         img_dfa_string = Image.open('dfa_diagram_string.png')
         img_dfa_string = np.array(img_dfa_string)
-        # img_dfa_string_resize = cv2.resize(img_dfa_string, None, fx= 2, fy=1.1, interpolation= cv2.INTER_AREA)
         st.image(img_dfa_string, caption='DFA for the string')
         if dfa_checker(dfa_list,string):
             st.header(u'\u2713 "' + string + '" is in the language defined by the DFA.')
